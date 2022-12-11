@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   Text,
   View,
-  ImageBackground,
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -12,29 +11,25 @@ import {
   Image,
 } from "react-native";
 
-import { AntDesign } from "@expo/vector-icons";
-
-import { styles } from "./RegistrationScreen.styled";
+import { styles } from "./LoginScreen.styled";
 
 const initialState = {
-  login: "",
   email: "",
   password: "",
 };
 
-const RegistrationScreen = ({ navigation }) => {
-  const image = require("../../assets/images/background.png");
+const LoginScreen = ({ navigation }) => {
+  const image = require("../../../assets/images/background.png");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [inputBgColor, setInputBgColor] = useState("#F6F6F6");
   const [inputBorderColor, setInputBorderColor] = useState("#E8E8E8");
   const [isHidePassword, setIsHidePassword] = useState(true);
-  const [iconName, setIconName] = useState("pluscircleo");
-  const [iconColor, setIconColor] = useState("#FF6C00");
 
   const onSubmit = () => {
     console.log(state);
     setState(initialState);
+    navigation.navigate("Home");
   };
 
   const keyboardHide = () => {
@@ -54,52 +49,18 @@ const RegistrationScreen = ({ navigation }) => {
     setInputBorderColor("#E8E8E8");
   };
 
-  const onAddPhoto = () => {
-    if (iconName === "pluscircleo") {
-      setIconName("closecircleo");
-      setIconColor("#E8E8E8");
-    } else {
-      setIconName("pluscircleo");
-      setIconColor("#FF6C00");
-    }
-  };
-
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
         <Image source={image} style={styles.image} />
         <View
-          style={{ ...styles.wrap, paddingBottom: isShowKeyboard ? 0 : 45 }}
+          style={{ ...styles.wrap, paddingBottom: isShowKeyboard ? 0 : 111 }}
         >
-          <View style={styles.avatar} />
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.addBtn}
-            onPress={onAddPhoto}
-          >
-            <AntDesign name={iconName} size={33} color={iconColor} />
-          </TouchableOpacity>
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
             <View style={{ marginBottom: isShowKeyboard ? 32 : 43 }}>
-              <Text style={styles.title}>Sign Up</Text>
-              <TextInput
-                style={{
-                  ...styles.input,
-                  marginBottom: 16,
-                  backgroundColor: inputBgColor,
-                  borderColor: inputBorderColor,
-                }}
-                placeholder="Login"
-                placeholderTextColor="#BDBDBD"
-                onFocus={onInputFocus}
-                onBlur={onInputBlur}
-                value={state.login}
-                onChangeText={(value) =>
-                  setState((prevState) => ({ ...prevState, login: value }))
-                }
-              />
+              <Text style={styles.title}>Sign In</Text>
               <TextInput
                 style={{
                   ...styles.input,
@@ -156,15 +117,13 @@ const RegistrationScreen = ({ navigation }) => {
                 style={styles.btn}
                 onPress={onSubmit}
               >
-                <Text style={styles.btnText}> Sign Up</Text>
+                <Text style={styles.btnText}> Sign In </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => navigation.navigate("Login")}
+                onPress={() => navigation.navigate("Register")}
               >
-                <Text style={styles.text}>
-                  Already have an account? Sign in
-                </Text>
+                <Text style={styles.text}>Don't have an account? Sign up</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -174,4 +133,4 @@ const RegistrationScreen = ({ navigation }) => {
   );
 };
 
-export default RegistrationScreen;
+export default LoginScreen;

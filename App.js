@@ -8,8 +8,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-import RegistrationScreen from "./Screens/RegistrationScreen/RegistrationScreen";
-import LoginScreen from "./Screens/LoginScreen/LoginScreen";
+import RegistrationScreen from "./Screens/auth/RegistrationScreen/RegistrationScreen";
+import LoginScreen from "./Screens/auth/LoginScreen/LoginScreen";
+import Home from "./Screens/mainScreen/Home/Home";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -45,6 +46,11 @@ export default function App() {
             options={{ headerShown: false }}
             name="Register"
             component={RegistrationScreen}
+          />
+          <AuthStack.Screen
+            options={{ headerShown: false }}
+            name="Home"
+            component={Home}
           />
         </AuthStack.Navigator>
       </View>
