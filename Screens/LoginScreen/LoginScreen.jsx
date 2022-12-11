@@ -2,13 +2,13 @@ import { useState } from "react";
 import {
   Text,
   View,
-  ImageBackground,
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
   Keyboard,
   TouchableWithoutFeedback,
+  Image,
 } from "react-native";
 
 import { styles } from "./LoginScreen.styled";
@@ -18,7 +18,7 @@ const initialState = {
   password: "",
 };
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const image = require("../../assets/images/background.png");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
@@ -26,11 +26,14 @@ const LoginScreen = () => {
   const [inputBorderColor, setInputBorderColor] = useState("#E8E8E8");
   const [isHidePassword, setIsHidePassword] = useState(true);
 
+  const onSubmit = () => {
+    console.log(state);
+    setState(initialState);
+  };
+
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
-    setState(initialState);
   };
 
   const onInputFocus = () => {
@@ -48,73 +51,82 @@ const LoginScreen = () => {
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
-        <ImageBackground source={image} style={styles.image}>
+        <Image source={image} style={styles.image} />
+        <View
+          style={{ ...styles.wrap, paddingBottom: isShowKeyboard ? 0 : 111 }}
+        >
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
-            <View style={styles.wrap}>
-              <View style={{ marginBottom: isShowKeyboard ? 32 : 43 }}>
-                <Text style={styles.title}>Sign In</Text>
-
+            <View style={{ marginBottom: isShowKeyboard ? 32 : 43 }}>
+              <Text style={styles.title}>Sign In</Text>
+              <TextInput
+                style={{
+                  ...styles.input,
+                  marginBottom: 16,
+                  backgroundColor: inputBgColor,
+                  borderColor: inputBorderColor,
+                }}
+                placeholder="Email"
+                placeholderTextColor="#BDBDBD"
+                onFocus={onInputFocus}
+                onBlur={onInputBlur}
+                value={state.email}
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, email: value }))
+                }
+              />
+              <View>
                 <TextInput
+                  secureTextEntry={isHidePassword}
                   style={{
                     ...styles.input,
-                    marginBottom: 16,
                     backgroundColor: inputBgColor,
                     borderColor: inputBorderColor,
+                    position: "relative",
                   }}
-                  placeholder="Email"
+                  placeholder="Password"
                   placeholderTextColor="#BDBDBD"
                   onFocus={onInputFocus}
                   onBlur={onInputBlur}
-                  value={state.email}
+                  value={state.password}
                   onChangeText={(value) =>
-                    setState((prevState) => ({ ...prevState, email: value }))
+                    setState((prevState) => ({
+                      ...prevState,
+                      password: value,
+                    }))
                   }
                 />
-                <View>
-                  <TextInput
-                    secureTextEntry={isHidePassword}
-                    style={{
-                      ...styles.input,
-                      backgroundColor: inputBgColor,
-                      borderColor: inputBorderColor,
-                      position: "relative",
-                    }}
-                    placeholder="Password"
-                    placeholderTextColor="#BDBDBD"
-                    onFocus={onInputFocus}
-                    onBlur={onInputBlur}
-                    value={state.password}
-                    onChangeText={(value) =>
-                      setState((prevState) => ({
-                        ...prevState,
-                        password: value,
-                      }))
-                    }
-                  />
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    style={styles.showBtn}
-                    onPress={() => {
-                      setIsHidePassword((prevState) => !prevState);
-                    }}
-                  >
-                    <Text style={styles.showBtnText}>Show</Text>
-                  </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  style={styles.showBtn}
+                  onPress={() => {
+                    setIsHidePassword((prevState) => !prevState);
+                  }}
+                >
+                  <Text style={styles.showBtnText}>Show</Text>
+                </TouchableOpacity>
               </View>
+            </View>
+          </KeyboardAvoidingView>
+          {!isShowKeyboard && (
+            <View>
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
-                onPress={keyboardHide}
+                onPress={onSubmit}
               >
-                <Text style={styles.btnText}> Sign In</Text>
+                <Text style={styles.btnText}> Sign In </Text>
               </TouchableOpacity>
-              <Text style={styles.text}>Don't have an account? Sign up</Text>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => navigation.navigate("Register")}
+              >
+                <Text style={styles.text}>Don't have an account? Sign up</Text>
+              </TouchableOpacity>
             </View>
-          </KeyboardAvoidingView>
-        </ImageBackground>
+          )}
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );

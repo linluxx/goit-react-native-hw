@@ -2,18 +2,18 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightblue",
+    backgroundColor: "#fff",
+    justifyContent: "flex-end",
   },
   image: {
     flex: 1,
-    justifyContent: "flex-end",
-    resizeMode: "cover",
+    position: "absolute",
+    width: "100%",
+    top: 0,
   },
 
   wrap: {
     backgroundColor: "#fff",
-    height: 549,
-    width: "100%",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     alignItems: "center",
@@ -85,6 +85,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: "#1B4371",
+    textAlign: "center",
   },
   addBtn: {
     zIndex: 2,

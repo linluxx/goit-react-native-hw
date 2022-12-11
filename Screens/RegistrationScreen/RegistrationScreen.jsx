@@ -9,6 +9,7 @@ import {
   Platform,
   Keyboard,
   TouchableWithoutFeedback,
+  Image,
 } from "react-native";
 
 import { AntDesign } from "@expo/vector-icons";
@@ -21,7 +22,7 @@ const initialState = {
   password: "",
 };
 
-const RegistrationScreen = () => {
+const RegistrationScreen = ({ navigation }) => {
   const image = require("../../assets/images/background.png");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
@@ -31,11 +32,14 @@ const RegistrationScreen = () => {
   const [iconName, setIconName] = useState("pluscircleo");
   const [iconColor, setIconColor] = useState("#FF6C00");
 
+  const onSubmit = () => {
+    console.log(state);
+    setState(initialState);
+  };
+
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
-    setState(initialState);
   };
 
   const onInputFocus = () => {
@@ -63,96 +67,108 @@ const RegistrationScreen = () => {
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
-        <ImageBackground source={image} style={styles.image}>
+        <Image source={image} style={styles.image} />
+        <View
+          style={{ ...styles.wrap, paddingBottom: isShowKeyboard ? 0 : 45 }}
+        >
+          <View style={styles.avatar} />
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.addBtn}
+            onPress={onAddPhoto}
+          >
+            <AntDesign name={iconName} size={33} color={iconColor} />
+          </TouchableOpacity>
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
-            <View style={styles.wrap}>
-              <View style={styles.avatar} />
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={styles.addBtn}
-                onPress={onAddPhoto}
-              >
-                <AntDesign name={iconName} size={33} color={iconColor} />
-              </TouchableOpacity>
-              <View style={{ marginBottom: isShowKeyboard ? 32 : 43 }}>
-                <Text style={styles.title}>Sign Up</Text>
+            <View style={{ marginBottom: isShowKeyboard ? 32 : 43 }}>
+              <Text style={styles.title}>Sign Up</Text>
+              <TextInput
+                style={{
+                  ...styles.input,
+                  marginBottom: 16,
+                  backgroundColor: inputBgColor,
+                  borderColor: inputBorderColor,
+                }}
+                placeholder="Login"
+                placeholderTextColor="#BDBDBD"
+                onFocus={onInputFocus}
+                onBlur={onInputBlur}
+                value={state.login}
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, login: value }))
+                }
+              />
+              <TextInput
+                style={{
+                  ...styles.input,
+                  marginBottom: 16,
+                  backgroundColor: inputBgColor,
+                  borderColor: inputBorderColor,
+                }}
+                placeholder="Email"
+                placeholderTextColor="#BDBDBD"
+                onFocus={onInputFocus}
+                onBlur={onInputBlur}
+                value={state.email}
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, email: value }))
+                }
+              />
+              <View>
                 <TextInput
+                  secureTextEntry={isHidePassword}
                   style={{
                     ...styles.input,
-                    marginBottom: 16,
                     backgroundColor: inputBgColor,
                     borderColor: inputBorderColor,
+                    position: "relative",
                   }}
-                  placeholder="Login"
+                  placeholder="Password"
                   placeholderTextColor="#BDBDBD"
                   onFocus={onInputFocus}
                   onBlur={onInputBlur}
-                  value={state.login}
+                  value={state.password}
                   onChangeText={(value) =>
-                    setState((prevState) => ({ ...prevState, login: value }))
+                    setState((prevState) => ({
+                      ...prevState,
+                      password: value,
+                    }))
                   }
                 />
-                <TextInput
-                  style={{
-                    ...styles.input,
-                    marginBottom: 16,
-                    backgroundColor: inputBgColor,
-                    borderColor: inputBorderColor,
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  style={styles.showBtn}
+                  onPress={() => {
+                    setIsHidePassword((prevState) => !prevState);
                   }}
-                  placeholder="Email"
-                  placeholderTextColor="#BDBDBD"
-                  onFocus={onInputFocus}
-                  onBlur={onInputBlur}
-                  value={state.email}
-                  onChangeText={(value) =>
-                    setState((prevState) => ({ ...prevState, email: value }))
-                  }
-                />
-                <View>
-                  <TextInput
-                    secureTextEntry={isHidePassword}
-                    style={{
-                      ...styles.input,
-                      backgroundColor: inputBgColor,
-                      borderColor: inputBorderColor,
-                      position: "relative",
-                    }}
-                    placeholder="Password"
-                    placeholderTextColor="#BDBDBD"
-                    onFocus={onInputFocus}
-                    onBlur={onInputBlur}
-                    value={state.password}
-                    onChangeText={(value) =>
-                      setState((prevState) => ({
-                        ...prevState,
-                        password: value,
-                      }))
-                    }
-                  />
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    style={styles.showBtn}
-                    onPress={() => {
-                      setIsHidePassword((prevState) => !prevState);
-                    }}
-                  >
-                    <Text style={styles.showBtnText}>Show</Text>
-                  </TouchableOpacity>
-                </View>
+                >
+                  <Text style={styles.showBtnText}>Show</Text>
+                </TouchableOpacity>
               </View>
+            </View>
+          </KeyboardAvoidingView>
+          {!isShowKeyboard && (
+            <View>
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
-                onPress={keyboardHide}
+                onPress={onSubmit}
               >
                 <Text style={styles.btnText}> Sign Up</Text>
               </TouchableOpacity>
-              <Text style={styles.text}>Already have an account? Sign in</Text>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => navigation.navigate("Login")}
+              >
+                <Text style={styles.text}>
+                  Already have an account? Sign in
+                </Text>
+              </TouchableOpacity>
             </View>
-          </KeyboardAvoidingView>
-        </ImageBackground>
+          )}
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
