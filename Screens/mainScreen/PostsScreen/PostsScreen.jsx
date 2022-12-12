@@ -1,46 +1,21 @@
-import { Text, View, Image, StyleSheet } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import DefaultPostsScreen from "../../nestedScreens/DefaultPostsScreen/DefaultPostsScreen";
+import MapScreen from "../../nestedScreens/MapScreen/MapScreen";
+import CommentsScreen from "../../nestedScreens/CommentsScreen/CommentsScreen";
+const NestedScreen = createStackNavigator();
 
 const PostsScreen = () => {
   return (
-    <View style={styles.container}>
-      <View style={styles.profileWrap}>
-        <Image source={require("../../../assets/images/User.png")} />
-        <View style={styles.textWrap}>
-          <Text style={styles.name}>Natali Romanova </Text>
-          <Text style={styles.email}>email@example.com</Text>
-        </View>
-      </View>
-    </View>
+    <NestedScreen.Navigator>
+      <NestedScreen.Screen
+        name="DefaultPostsScreen"
+        component={DefaultPostsScreen}
+        options={{ headerShown: false }}
+      />
+      <NestedScreen.Screen name="Comments" component={CommentsScreen} />
+      <NestedScreen.Screen name="Map" component={MapScreen} />
+    </NestedScreen.Navigator>
   );
 };
 
 export default PostsScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-
-  profileWrap: {
-    flexDirection: "row",
-    paddingVertical: 32,
-    paddingHorizontal: 16,
-  },
-  textWrap: {
-    marginLeft: 8,
-    marginTop: 16,
-  },
-  name: {
-    fontFamily: "Roboto-Bold",
-    fontSize: 13,
-    lineHeight: 15,
-    color: "#212121",
-  },
-  email: {
-    fontFamily: "Roboto-Regular",
-    fontSize: 11,
-    lineHeight: 13,
-    color: "#212121",
-  },
-});

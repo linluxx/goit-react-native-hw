@@ -1,23 +1,6 @@
-import { useState } from "react";
-import {
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-  Keyboard,
-  StyleSheet,
-  Image,
-} from "react-native";
+import { Text, View, TouchableOpacity, StyleSheet, Image } from "react-native";
 
 import { AntDesign, Feather } from "@expo/vector-icons";
-
-const initialState = {
-  login: "",
-  email: "",
-  password: "",
-};
 
 const ProfileScreen = () => {
   const image = require("../../../assets/images/background.png");
@@ -32,7 +15,7 @@ const ProfileScreen = () => {
           source={require("../../../assets/images/user2.png")}
         />
         <TouchableOpacity activeOpacity={0.8} style={styles.addBtn}>
-          <AntDesign name="closecircleo" size={33} color="#8b0000" />
+          <AntDesign name="closecircleo" size={30} color="#BDBDBD" />
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={0.8} style={styles.exitBtn}>
           <Feather name="log-out" size={27} color="#BDBDBD" />
@@ -92,7 +75,9 @@ const styles = StyleSheet.create({
     zIndex: 2,
     position: "absolute",
     top: 21,
-    left: 238,
+    left: 240,
+    backgroundColor: "#fff",
+    borderRadius: 20,
   },
   exitBtn: {
     zIndex: 2,
