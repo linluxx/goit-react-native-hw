@@ -12,6 +12,7 @@ import { Camera } from "expo-camera";
 import * as Location from "expo-location";
 
 import { MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
 import * as ImagePicker from "expo-image-picker";
@@ -111,65 +112,80 @@ const CreatePostsScreen = ({ navigation }) => {
     }
   };
 
+  const clearPost = () => {
+    setDescription("");
+    setPhoto(null);
+    setPlace("");
+  };
+
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
-        <Camera style={styles.photoWrap} ref={setCamera}>
-          {photo && (
-            <View style={styles.takePhotoWrap}>
-              <Image
-                source={{ uri: photo }}
-                style={{ height: 240, width: 360 }}
-              />
-            </View>
-          )}
+        <View>
+          <Camera style={styles.photoWrap} ref={setCamera}>
+            {photo && (
+              <View style={styles.takePhotoWrap}>
+                <Image
+                  source={{ uri: photo }}
+                  style={{ height: 240, width: 360 }}
+                />
+              </View>
+            )}
 
-          <TouchableOpacity style={styles.iconWrap} onPress={takePhoto}>
-            <MaterialIcons name="camera-alt" size={30} color="#BDBDBD" />
+            <TouchableOpacity style={styles.iconWrap} onPress={takePhoto}>
+              <MaterialIcons name="camera-alt" size={30} color="#BDBDBD" />
+            </TouchableOpacity>
+          </Camera>
+          <TouchableOpacity onPress={pickImage}>
+            {!photo ? (
+              <Text style={styles.text}>Upload photo</Text>
+            ) : (
+              <Text style={styles.text}>Change photo</Text>
+            )}
           </TouchableOpacity>
-        </Camera>
-        <TouchableOpacity onPress={pickImage}>
-          {!photo ? (
-            <Text style={styles.text}>Upload photo</Text>
-          ) : (
-            <Text style={styles.text}>Change photo</Text>
-          )}
-        </TouchableOpacity>
 
-        <TextInput
-          placeholder="Name..."
-          placeholderTextColor="#BDBDBD"
-          style={styles.input}
-          value={description}
-          onChangeText={setDescription}
-        />
-        <TextInput
-          placeholder="Place..."
-          placeholderTextColor="#BDBDBD"
-          style={{ ...styles.input, marginBottom: 32 }}
-          value={place}
-          onChangeText={setPlace}
-        />
+          <TextInput
+            placeholder="Name..."
+            placeholderTextColor="#BDBDBD"
+            style={styles.input}
+            value={description}
+            onChangeText={setDescription}
+          />
+          <TextInput
+            placeholder="Place..."
+            placeholderTextColor="#BDBDBD"
+            style={{ ...styles.input, marginBottom: 32 }}
+            value={place}
+            onChangeText={setPlace}
+          />
 
-        <TouchableOpacity
-          disabled={photo ? false : true}
-          onPress={sendPhoto}
-          activeOpacity={0.7}
-          style={
-            photo
-              ? { ...styles.publishBtn, backgroundColor: "#FF6C00" }
-              : styles.publishBtn
-          }
-        >
-          <Text
+          <TouchableOpacity
+            disabled={photo ? false : true}
+            onPress={sendPhoto}
+            activeOpacity={0.7}
             style={
               photo
-                ? { ...styles.publishBtnText, color: "#fff" }
-                : styles.publishBtnText
+                ? { ...styles.publishBtn, backgroundColor: "#FF6C00" }
+                : styles.publishBtn
             }
           >
-            Publish
-          </Text>
+            <Text
+              style={
+                photo
+                  ? { ...styles.publishBtnText, color: "#fff" }
+                  : styles.publishBtnText
+              }
+            >
+              Publish
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          onPress={clearPost}
+          activeOpacity={0.7}
+          style={styles.deleteBtn}
+        >
+          <Feather name="trash-2" size={24} color="#BDBDBD" />
         </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>

@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 32,
     backgroundColor: "#ffffff",
+    justifyContent: "space-between",
   },
   photoWrap: {
     width: 360,
@@ -63,6 +64,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Roboto-Regular",
     lineHeight: 19,
+  },
+
+  deleteBtn: {
+    width: 70,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "#F6F6F6",
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 });
 

@@ -8,7 +8,7 @@ import { getEmail } from "../../../redux/auth/selectors";
 import { getLogin } from "../../../redux/auth/selectors";
 import styles from "./DefaultPostsScreen.styled";
 
-const DefaultPostsScreen = ({ route, navigation }) => {
+const DefaultPostsScreen = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
   const email = useSelector(getEmail);
   const login = useSelector(getLogin);
@@ -20,6 +20,16 @@ const DefaultPostsScreen = ({ route, navigation }) => {
       .onSnapshot((data) =>
         setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
       );
+  };
+
+  const onLike = async (item) => {
+    let likes = item.likes ? item.likes + 1 : 0 + 1;
+
+    await db
+      .firestore()
+      .collection("posts")
+      .doc(item.id)
+      .set({ ...item, likes });
   };
 
   useEffect(() => {
@@ -76,10 +86,26 @@ const DefaultPostsScreen = ({ route, navigation }) => {
                     {item.commentsCount ? item.commentsCount : 0}
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.likes}>
-                  <Feather name="thumbs-up" size={24} color="#BDBDBD" />
+                <TouchableOpacity
+                  onPress={() => {
+                    onLike(item);
+                  }}
+                  style={styles.likes}
+                >
+                  <Feather
+                    name="thumbs-up"
+                    size={24}
+                    color={item.likes ? "#FF6C00" : "#BDBDBD"}
+                  />
                 </TouchableOpacity>
-                <Text style={styles.commentsCount}>0</Text>
+                <Text
+                  style={{
+                    ...styles.commentsCount,
+                    color: item.likes ? "#212121" : "#BDBDBD",
+                  }}
+                >
+                  {item.likes ? item.likes : 0}
+                </Text>
               </View>
               <TouchableOpacity
                 style={styles.place}

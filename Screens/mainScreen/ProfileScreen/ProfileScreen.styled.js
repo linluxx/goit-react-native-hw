@@ -77,11 +77,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   commentsCount: {
-    color: "#BDBDBD",
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
     marginLeft: 6,
+    marginRight: 24,
   },
   place: {
     flexDirection: "row",

@@ -65,24 +65,47 @@ const ProfileScreen = ({ navigation }) => {
               />
               <Text style={styles.postName}>{item.description}</Text>
               <View style={styles.postLabel}>
-                <TouchableOpacity
-                  style={styles.comments}
-                  onPress={() => navigation.navigate("Comments", { item })}
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                 >
-                  <Feather
-                    name="message-circle"
-                    size={24}
-                    color={item.commentsCount ? "#FF6C00" : "#BDBDBD"}
-                  />
+                  <TouchableOpacity
+                    style={styles.comments}
+                    onPress={() => navigation.navigate("Comments", { item })}
+                  >
+                    <Feather
+                      name="message-circle"
+                      size={24}
+                      color={item.commentsCount ? "#FF6C00" : "#BDBDBD"}
+                    />
+                    <Text
+                      style={{
+                        ...styles.commentsCount,
+                        color: item.commentsCount ? "#212121" : "#BDBDBD",
+                      }}
+                    >
+                      {item.commentsCount ? item.commentsCount : 0}
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity activeOpacity={1} style={styles.likes}>
+                    <Feather
+                      name="thumbs-up"
+                      size={24}
+                      color={item.likes ? "#FF6C00" : "#BDBDBD"}
+                    />
+                  </TouchableOpacity>
                   <Text
                     style={{
                       ...styles.commentsCount,
-                      color: item.commentsCount ? "#212121" : "#BDBDBD",
+                      color: item.likes ? "#212121" : "#BDBDBD",
                     }}
                   >
-                    {item.commentsCount ? item.commentsCount : 0}
+                    {item.likes ? item.likes : 0}
                   </Text>
-                </TouchableOpacity>
+                </View>
                 <TouchableOpacity
                   style={styles.place}
                   onPress={() =>
