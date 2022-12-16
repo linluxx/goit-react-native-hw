@@ -1,11 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import DefaultPostsScreen from "../../nestedScreens/DefaultPostsScreen/DefaultPostsScreen";
-import MapScreen from "../../nestedScreens/MapScreen/MapScreen";
-import CommentsScreen from "../../nestedScreens/CommentsScreen/CommentsScreen";
+import DefaultPostsScreen from "../nestedScreens/DefaultPostsScreen/DefaultPostsScreen";
+import MapScreen from "../nestedScreens/MapScreen";
+import CommentsScreen from "../nestedScreens/CommentsScreen/CommentsScreen";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
-import { signOutUser } from "../../../redux/auth/authOperations";
+import { signOutUser } from "../../redux/auth/authOperations";
 
 const NestedScreen = createStackNavigator();
 

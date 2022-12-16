@@ -1,7 +1,6 @@
 import {
   Text,
   View,
-  StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
@@ -15,22 +14,16 @@ import * as Location from "expo-location";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
+import * as ImagePicker from "expo-image-picker";
 
 import db from "../../../firebase/config";
 import { getLogin, getUserId } from "../../../redux/auth/selectors";
-
-// const initialState = {
-//   name: "",
-//   place: "",
-// };
+import styles from "./CreatePostsScreen.styled";
 
 const CreatePostsScreen = ({ navigation }) => {
   const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState(null);
-  // const [state, setState] = useState(initialState);
   const [location, setLocation] = useState(null);
-  const [publishBtnColor, setPublishBtnColor] = useState("#f6f6f6");
-  const [publishBtnColorText, setPublishBtnColorText] = useState("#BDBDBD");
   const [description, setDescription] = useState("");
   const [place, setPlace] = useState("");
 
@@ -62,8 +55,6 @@ const CreatePostsScreen = ({ navigation }) => {
 
   const takePhoto = async () => {
     const snap = await camera.takePictureAsync();
-    setPublishBtnColor("#FF6C00");
-    setPublishBtnColorText("#FFF");
     const loc = await Location.getCurrentPositionAsync();
     setPhoto(snap.uri);
     console.log(loc);
@@ -104,6 +95,22 @@ const CreatePostsScreen = ({ navigation }) => {
     console.log("processedPhoto", processedPhoto);
     return processedPhoto;
   };
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setPhoto(result.assets[0].uri);
+    }
+  };
+
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
@@ -121,7 +128,14 @@ const CreatePostsScreen = ({ navigation }) => {
             <MaterialIcons name="camera-alt" size={30} color="#BDBDBD" />
           </TouchableOpacity>
         </Camera>
-        <Text style={styles.text}>Upload photo</Text>
+        <TouchableOpacity onPress={pickImage}>
+          {!photo ? (
+            <Text style={styles.text}>Upload photo</Text>
+          ) : (
+            <Text style={styles.text}>Change photo</Text>
+          )}
+        </TouchableOpacity>
+
         <TextInput
           placeholder="Name..."
           placeholderTextColor="#BDBDBD"
@@ -138,12 +152,21 @@ const CreatePostsScreen = ({ navigation }) => {
         />
 
         <TouchableOpacity
+          disabled={photo ? false : true}
           onPress={sendPhoto}
           activeOpacity={0.7}
-          style={{ ...styles.publishBtn, backgroundColor: publishBtnColor }}
+          style={
+            photo
+              ? { ...styles.publishBtn, backgroundColor: "#FF6C00" }
+              : styles.publishBtn
+          }
         >
           <Text
-            style={{ ...styles.publishBtnText, color: publishBtnColorText }}
+            style={
+              photo
+                ? { ...styles.publishBtnText, color: "#fff" }
+                : styles.publishBtnText
+            }
           >
             Publish
           </Text>
@@ -154,70 +177,3 @@ const CreatePostsScreen = ({ navigation }) => {
 };
 
 export default CreatePostsScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    flex: 1,
-    paddingVertical: 32,
-    backgroundColor: "#ffffff",
-  },
-  photoWrap: {
-    width: 360,
-    height: 240,
-    backgroundColor: "#F6F6F6",
-    borderColor: "E8E8E8",
-    borderRadius: 20,
-    alignItems: "center",
-    marginBottom: 8,
-  },
-
-  iconWrap: {
-    width: 50,
-    height: 50,
-    backgroundColor: "#fff",
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    opacity: 0.5,
-    marginTop: 170,
-  },
-  takePhotoWrap: {
-    position: "absolute",
-
-    // borderColor: "green",
-    borderWidth: 3,
-    width: 360,
-    height: 240,
-    // borderRadius: 20,
-  },
-  text: {
-    color: "#BDBDBD",
-    fontFamily: "Roboto-Regular",
-    fontSize: 16,
-    lineHeight: 19,
-    marginBottom: 32,
-  },
-  input: {
-    height: 50,
-    width: 343,
-    fontSize: 16,
-    fontFamily: "Roboto-Regular",
-    lineHeight: 19,
-    borderBottomColor: "#E8E8E8",
-    borderBottomWidth: 1,
-  },
-  publishBtn: {
-    width: 343,
-    height: 51,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 100,
-  },
-  publishBtnText: {
-    color: "#BDBDBD",
-    fontSize: 16,
-    fontFamily: "Roboto-Regular",
-    lineHeight: 19,
-  },
-});

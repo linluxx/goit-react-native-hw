@@ -3,10 +3,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import CreatePostsScreen from "./CreatePostsScreen/CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen/ProfileScreen";
-import PostsScreen from "./PostsScreen/PostsScreen";
+import PostsScreen from "./PostsScreen";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
-import { signOutUser } from "../../redux/auth/authOperations";
 const MainTab = createBottomTabNavigator();
 
 const Home = ({ navigation }) => {
