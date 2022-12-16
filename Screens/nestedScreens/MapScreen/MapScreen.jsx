@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 const MapScreen = ({ route }) => {
-  const location = route.params.item.location;
-  const placeName = route.params.item.state.place;
-  console.log(route.params.item.location);
+  const location = route.params.location;
+  const placeName = route.params.place;
+  console.log(route.params.location);
   return (
     <View style={styles.container}>
       <MapView

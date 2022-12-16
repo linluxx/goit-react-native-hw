@@ -10,8 +10,11 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from "react-native";
+import { useDispatch } from "react-redux";
 
 import { AntDesign } from "@expo/vector-icons";
+
+import { signUpUser } from "../../../redux/auth/authOperations";
 
 import { styles } from "./RegistrationScreen.styled";
 
@@ -31,9 +34,11 @@ const RegistrationScreen = ({ navigation }) => {
   const [iconName, setIconName] = useState("pluscircleo");
   const [iconColor, setIconColor] = useState("#FF6C00");
 
+  const dispatch = useDispatch();
+
   const onSubmit = () => {
     console.log(state);
-    navigation.navigate("Home");
+    dispatch(signUpUser(state));
     setState(initialState);
   };
 

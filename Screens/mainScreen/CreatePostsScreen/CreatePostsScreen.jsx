@@ -8,26 +8,31 @@ import {
   Image,
 } from "react-native";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 
-const initialState = {
-  name: "",
-  place: "",
-};
+import db from "../../../firebase/config";
+import { getLogin, getUserId } from "../../../redux/auth/selectors";
+
+// const initialState = {
+//   name: "",
+//   place: "",
+// };
 
 const CreatePostsScreen = ({ navigation }) => {
   const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState(null);
-  const [state, setState] = useState(initialState);
+  // const [state, setState] = useState(initialState);
   const [location, setLocation] = useState(null);
   const [publishBtnColor, setPublishBtnColor] = useState("#f6f6f6");
   const [publishBtnColorText, setPublishBtnColorText] = useState("#BDBDBD");
+  const [description, setDescription] = useState("");
+  const [place, setPlace] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -46,6 +51,8 @@ const CreatePostsScreen = ({ navigation }) => {
         console.log("Permission to access location was denied");
         return;
       }
+      let locationRes = await Location.getCurrentPositionAsync({});
+      setLocation(locationRes);
     })();
   }, []);
 
@@ -64,9 +71,38 @@ const CreatePostsScreen = ({ navigation }) => {
   };
 
   const sendPhoto = () => {
-    navigation.navigate("DefaultPostsScreen", { photo, state, location });
-    setState(initialState);
+    uploadPostToServer();
+    navigation.navigate("Posts");
+    setDescription("");
+    setPlace("");
     setPhoto(null);
+  };
+
+  const login = useSelector(getLogin);
+  const userId = useSelector(getUserId);
+
+  const uploadPostToServer = async () => {
+    const photo = await uploadPhotoToServer();
+    console.log(location);
+    const createPost = await db
+      .firestore()
+      .collection("posts")
+      .add({ photo, place, description, location, userId, login });
+  };
+
+  const uploadPhotoToServer = async () => {
+    const response = await fetch(photo);
+    const file = await response.blob();
+    const uniquePostId = Date.now().toString();
+    await db.storage().ref(`postImage/${uniquePostId}`).put(file);
+    const processedPhoto = await db
+      .storage()
+      .ref("postImage")
+      .child(uniquePostId)
+      .getDownloadURL();
+
+    console.log("processedPhoto", processedPhoto);
+    return processedPhoto;
   };
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
@@ -90,19 +126,15 @@ const CreatePostsScreen = ({ navigation }) => {
           placeholder="Name..."
           placeholderTextColor="#BDBDBD"
           style={styles.input}
-          value={state.name}
-          onChangeText={(value) =>
-            setState((prevState) => ({ ...prevState, name: value }))
-          }
+          value={description}
+          onChangeText={setDescription}
         />
         <TextInput
           placeholder="Place..."
           placeholderTextColor="#BDBDBD"
           style={{ ...styles.input, marginBottom: 32 }}
-          value={state.place}
-          onChangeText={(value) =>
-            setState((prevState) => ({ ...prevState, place: value }))
-          }
+          value={place}
+          onChangeText={setPlace}
         />
 
         <TouchableOpacity

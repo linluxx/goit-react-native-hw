@@ -1,20 +1,14 @@
 import { useCallback } from "react";
-
-import { StatusBar } from "expo-status-bar";
+import { Provider } from "react-redux";
 import { StyleSheet, View } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-import RegistrationScreen from "./Screens/auth/RegistrationScreen/RegistrationScreen";
-import LoginScreen from "./Screens/auth/LoginScreen/LoginScreen";
-import Home from "./Screens/mainScreen/Home/Home";
+import Main from "./components/Main";
+import { store } from "./redux/store";
 
 SplashScreen.preventAutoHideAsync();
-
-const AuthStack = createStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -22,6 +16,7 @@ export default function App() {
     "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
   });
+
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -33,28 +28,11 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
+    <Provider store={store}>
       <View onLayout={onLayoutRootView} style={styles.container}>
-        <StatusBar style="auto" />
-        <AuthStack.Navigator>
-          <AuthStack.Screen
-            options={{ headerShown: false }}
-            name="Login"
-            component={LoginScreen}
-          />
-          <AuthStack.Screen
-            options={{ headerShown: false }}
-            name="Register"
-            component={RegistrationScreen}
-          />
-          <AuthStack.Screen
-            options={{ headerShown: false }}
-            name="Home"
-            component={Home}
-          />
-        </AuthStack.Navigator>
+        <Main />
       </View>
-    </NavigationContainer>
+    </Provider>
   );
 }
 

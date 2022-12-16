@@ -11,6 +11,10 @@ import {
   Image,
 } from "react-native";
 
+import { useDispatch } from "react-redux";
+
+import { signInUser } from "../../../redux/auth/authOperations";
+
 import { styles } from "./LoginScreen.styled";
 
 const initialState = {
@@ -26,10 +30,12 @@ const LoginScreen = ({ navigation }) => {
   const [inputBorderColor, setInputBorderColor] = useState("#E8E8E8");
   const [isHidePassword, setIsHidePassword] = useState(true);
 
+  const dispatch = useDispatch();
+
   const onSubmit = () => {
     console.log(state);
     setState(initialState);
-    navigation.navigate("Home");
+    dispatch(signInUser(state));
   };
 
   const keyboardHide = () => {
