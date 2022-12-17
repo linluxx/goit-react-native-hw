@@ -16,7 +16,7 @@ const Home = ({ navigation }) => {
       screenOptions={{
         tabBarShowLabel: false,
         tabBarActiveTintColor: "#FF6C00",
-        tabBarInactiveTintColor: "#212121CC",
+        tabBarInactiveTintColor: "#124250",
         tabBarStyle: {
           paddingTop: 9,
           paddingHorizontal: 60,
@@ -66,7 +66,7 @@ const Home = ({ navigation }) => {
             display: "none",
           },
           tabBarItemStyle: {
-            backgroundColor: "#FF6C00",
+            backgroundColor: "#124250",
             borderRadius: 20,
             width: 70,
             height: 40,

@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
   },
 
   title: {
-    color: "#212121",
+    color: "#124250",
     fontFamily: "Roboto-Bold",
     fontWight: 500,
     fontSize: 30,
@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
   btn: {
     width: 343,
     height: 51,
-    backgroundColor: "#FF6C00",
+    backgroundColor: "#124250",
     borderRadius: 100,
     paddingVertical: 16,
     paddingHorizontal: 32,

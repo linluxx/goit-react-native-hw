@@ -23,7 +23,7 @@ const initialState = {
 };
 
 const LoginScreen = ({ navigation }) => {
-  const image = require("../../../assets/images/background.png");
+  const image = require("../../../assets/images/tree.jpg");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [inputBgColor, setInputBgColor] = useState("#F6F6F6");

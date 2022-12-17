@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: "#212121",
+    color: "#124250",
     fontFamily: "Roboto-Bold",
     fontWight: 500,
     fontSize: 30,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Bold",
     fontSize: 16,
     lineHeight: 19,
-    color: "#212121",
+    color: "#124250",
   },
   postLabel: {
     flexDirection: "row",
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
-    color: "#212121",
+    color: "#124250",
     marginLeft: 4,
     textDecorationLine: "underline",
   },

@@ -19,13 +19,13 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Bold",
     fontSize: 13,
     lineHeight: 15,
-    color: "#212121",
+    color: "#124250",
   },
   email: {
     fontFamily: "Roboto-Regular",
     fontSize: 11,
     lineHeight: 13,
-    color: "#212121",
+    color: "#124250",
   },
 
   postWrap: {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Bold",
     fontSize: 16,
     lineHeight: 19,
-    color: "#212121",
+    color: "#124250",
   },
   postLabel: {
     flexDirection: "row",
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
-    color: "#212121",
+    color: "#124250",
     marginLeft: 4,
     textDecorationLine: "underline",
   },

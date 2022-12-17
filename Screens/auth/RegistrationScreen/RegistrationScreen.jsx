@@ -25,14 +25,14 @@ const initialState = {
 };
 
 const RegistrationScreen = ({ navigation }) => {
-  const image = require("../../../assets/images/background.png");
+  const image = require("../../../assets/images/tree.jpg");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [inputBgColor, setInputBgColor] = useState("#F6F6F6");
   const [inputBorderColor, setInputBorderColor] = useState("#E8E8E8");
   const [isHidePassword, setIsHidePassword] = useState(true);
   const [iconName, setIconName] = useState("pluscircleo");
-  const [iconColor, setIconColor] = useState("#FF6C00");
+  const [iconColor, setIconColor] = useState("#124250");
 
   const dispatch = useDispatch();
 

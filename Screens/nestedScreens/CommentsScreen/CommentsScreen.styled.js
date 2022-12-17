@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     textAlign: "right",
     marginBottom: 6,
-    color: "#212121",
+    color: "#FF6C00",
   },
   commentText: {
     fontFamily: "Roboto-Regular",
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     textAlign: "right",
     marginBottom: 8,
-    color: "#212121",
+    color: "#124250",
   },
   commentDate: {
     fontFamily: "Roboto-Regular",
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     width: 37,
     height: 37,
     borderRadius: 50,
-    backgroundColor: "#ff6c00",
+    backgroundColor: "#124250",
     top: 6,
     left: 315,
     alignItems: "center",

@@ -12,7 +12,7 @@ import db from "../../../firebase/config";
 
 const ProfileScreen = ({ navigation }) => {
   const [userPosts, setUserPosts] = useState([]);
-  const image = require("../../../assets/images/background.png");
+  const image = require("../../../assets/images/tree.jpg");
   const dispatch = useDispatch();
   const userId = useSelector(getUserId);
   const login = useSelector(getLogin);
@@ -21,7 +21,7 @@ const ProfileScreen = ({ navigation }) => {
     getUserPosts();
   }, []);
 
-  getUserPosts = async () => {
+  const getUserPosts = async () => {
     await db
       .firestore()
       .collection("posts")
@@ -41,7 +41,7 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.wrap}>
         <Image
           style={styles.avatar}
-          source={require("../../../assets/images/user2.png")}
+          source={require("../../../assets/images/mandarin.png")}
         />
         <TouchableOpacity activeOpacity={0.8} style={styles.addBtn}>
           <AntDesign name="closecircleo" size={30} color="#BDBDBD" />
@@ -84,7 +84,7 @@ const ProfileScreen = ({ navigation }) => {
                     <Text
                       style={{
                         ...styles.commentsCount,
-                        color: item.commentsCount ? "#212121" : "#BDBDBD",
+                        color: item.commentsCount ? "#124250" : "#BDBDBD",
                       }}
                     >
                       {item.commentsCount ? item.commentsCount : 0}
@@ -100,7 +100,7 @@ const ProfileScreen = ({ navigation }) => {
                   <Text
                     style={{
                       ...styles.commentsCount,
-                      color: item.likes ? "#212121" : "#BDBDBD",
+                      color: item.likes ? "#124250" : "#BDBDBD",
                     }}
                   >
                     {item.likes ? item.likes : 0}

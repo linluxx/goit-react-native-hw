@@ -40,7 +40,10 @@ const DefaultPostsScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.profileWrap}>
-        <Image source={require("../../../assets/images/User.png")} />
+        <Image
+          source={require("../../../assets/images/mandarin.png")}
+          style={{ width: 60, height: 60, borderRadius: 20 }}
+        />
         <View style={styles.textWrap}>
           <Text style={styles.name}>{login} </Text>
           <Text style={styles.email}>{email}</Text>
@@ -80,7 +83,7 @@ const DefaultPostsScreen = ({ navigation }) => {
                   <Text
                     style={{
                       ...styles.commentsCount,
-                      color: item.commentsCount ? "#212121" : "#BDBDBD",
+                      color: item.commentsCount ? "#124250" : "#BDBDBD",
                     }}
                   >
                     {item.commentsCount ? item.commentsCount : 0}
@@ -101,7 +104,7 @@ const DefaultPostsScreen = ({ navigation }) => {
                 <Text
                   style={{
                     ...styles.commentsCount,
-                    color: item.likes ? "#212121" : "#BDBDBD",
+                    color: item.likes ? "#124250" : "#BDBDBD",
                   }}
                 >
                   {item.likes ? item.likes : 0}

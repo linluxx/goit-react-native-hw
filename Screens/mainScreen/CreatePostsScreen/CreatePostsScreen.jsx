@@ -165,7 +165,7 @@ const CreatePostsScreen = ({ navigation }) => {
             activeOpacity={0.7}
             style={
               photo
-                ? { ...styles.publishBtn, backgroundColor: "#FF6C00" }
+                ? { ...styles.publishBtn, backgroundColor: "#124250" }
                 : styles.publishBtn
             }
           >
