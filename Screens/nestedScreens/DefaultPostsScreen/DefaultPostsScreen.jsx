@@ -41,7 +41,7 @@ const DefaultPostsScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.profileWrap}>
         <Image
-          source={require("../../../assets/images/mandarin.png")}
+          source={require("../../../assets/images/mandarina.jpg")}
           style={{ width: 60, height: 60, borderRadius: 20 }}
         />
         <View style={styles.textWrap}>
@@ -110,18 +110,20 @@ const DefaultPostsScreen = ({ navigation }) => {
                   {item.likes ? item.likes : 0}
                 </Text>
               </View>
-              <TouchableOpacity
-                style={styles.place}
-                onPress={() =>
-                  navigation.navigate("Map", {
-                    location: item.location,
-                    placeName: item.place,
-                  })
-                }
-              >
-                <Feather name="map-pin" size={24} color="#BDBDBD" />
-                <Text style={styles.placeText}>{item.place}</Text>
-              </TouchableOpacity>
+              <View>
+                <TouchableOpacity
+                  style={styles.place}
+                  onPress={() =>
+                    navigation.navigate("Map", {
+                      location: item.location,
+                      placeName: item.place,
+                    })
+                  }
+                >
+                  <Feather name="map-pin" size={24} color="#BDBDBD" />
+                  <Text style={styles.placeText}>{item.place}</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         )}

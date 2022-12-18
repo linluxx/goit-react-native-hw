@@ -41,7 +41,7 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.wrap}>
         <Image
           style={styles.avatar}
-          source={require("../../../assets/images/mandarin.png")}
+          source={require("../../../assets/images/mandarina.jpg")}
         />
         <TouchableOpacity activeOpacity={0.8} style={styles.addBtn}>
           <AntDesign name="closecircleo" size={30} color="#BDBDBD" />

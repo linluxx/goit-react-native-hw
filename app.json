@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "goit-react-native-hw",
-    "slug": "goit-react-native-hw",
+    "slug": "mandarin-social-media",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -18,16 +18,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.linluxx.mandarinsocialmedia"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.linluxx.mandarinsocialmedia"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6a13ba5d-c2a7-4ec9-865d-2f1fc2e4fccd"
+      }
+    },
+    "owner": "linluxx"
   }
 }
