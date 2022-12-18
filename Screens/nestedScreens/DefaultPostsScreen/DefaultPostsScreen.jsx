@@ -36,7 +36,6 @@ const DefaultPostsScreen = ({ navigation }) => {
     getAllPost();
   }, []);
 
-  console.log(posts);
   return (
     <View style={styles.container}>
       <View style={styles.profileWrap}>

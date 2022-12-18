@@ -58,7 +58,7 @@ const CreatePostsScreen = ({ navigation }) => {
     const snap = await camera.takePictureAsync();
     const loc = await Location.getCurrentPositionAsync();
     setPhoto(snap.uri);
-    console.log(loc);
+
     setLocation(loc.coords);
   };
 
@@ -75,7 +75,6 @@ const CreatePostsScreen = ({ navigation }) => {
 
   const uploadPostToServer = async () => {
     const photo = await uploadPhotoToServer();
-    console.log(location);
     const createPost = await db
       .firestore()
       .collection("posts")
@@ -93,7 +92,6 @@ const CreatePostsScreen = ({ navigation }) => {
       .child(uniquePostId)
       .getDownloadURL();
 
-    console.log("processedPhoto", processedPhoto);
     return processedPhoto;
   };
 
@@ -104,8 +102,6 @@ const CreatePostsScreen = ({ navigation }) => {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
 
     if (!result.canceled) {
       setPhoto(result.assets[0].uri);

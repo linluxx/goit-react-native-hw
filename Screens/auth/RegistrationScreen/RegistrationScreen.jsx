@@ -37,7 +37,6 @@ const RegistrationScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const onSubmit = () => {
-    console.log(state);
     dispatch(signUpUser(state));
     setState(initialState);
   };

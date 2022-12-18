@@ -4,7 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 const MapScreen = ({ route }) => {
   const location = route.params.location;
   const placeName = route.params.place;
-  console.log(route.params.location);
+
   return (
     <View style={styles.container}>
       <MapView
